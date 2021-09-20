@@ -47,6 +47,17 @@ const Users = () => {
     dispatch(profile.findAllUser())
   }, [dispatch, currentPage, page]);
 
+  console.log(Math.round(users.length/5 + .4));
+
+  const pagUser = () => {
+    if(users.length%5 !== 0){
+      return Math.round(users.length/5 + .4)
+    }else{
+      return users.length/5
+    }
+  }
+  const paginas = pagUser();
+
   return (
     <CRow>
       <CCol xl={12}>
@@ -70,7 +81,7 @@ const Users = () => {
               scopedSlots={{
                 delete: (item) => (
                   <td>
-                    <CBadge color={getBadge(`status:`, item.delete ? `danger`: `sucess`)}>{item.delete}</CBadge>
+                    <CBadge color={getBadge(item.delete ? `Active`: `Inactive`)}>{item.delete}</CBadge>
                   </td>
                 ),
               }}
@@ -78,7 +89,7 @@ const Users = () => {
             <CPagination
               activePage={page}
               onActivePageChange={pageChange}
-              pages={users.length/5}
+              pages={paginas}
               doubleArrows={false}
               align="center"
             />
