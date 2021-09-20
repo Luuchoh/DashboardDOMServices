@@ -41,13 +41,10 @@ const Users = () => {
     currentPage !== newPage && history.push(`/users?page=${newPage}`);
   };
 
-
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
     dispatch(profile.findAllUser())
   }, [dispatch, currentPage, page]);
-
-  console.log(Math.round(users.length/5 + .4));
 
   const pagUser = () => {
     if(users.length%5 !== 0){

@@ -41,11 +41,19 @@ const Categories = () => {
     currentPage !== newPage && history.push(`/categories/actual-categories?page=${newPage}`);
   };
 
-
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
     dispatch(findCategories())
   }, [dispatch, currentPage, page]);
+
+  const pagcategories = () => {
+    if(categories.length%5 !== 0){
+      return Math.round(categories.length/5 + .4)
+    }else{
+      return categories.length/5
+    }
+  }
+  const paginas = pagcategories();
 
   return (
     <CRow className="justify-content-center">
@@ -76,7 +84,7 @@ const Categories = () => {
             <CPagination
               activePage={page}
               onActivePageChange={pageChange}
-              pages={categories.length/5 < 1 ? 1 : categories.length/5}
+              pages={categories.length/5 < 1 ? 1 : paginas}
               doubleArrows={false}
               align="center"
             />
