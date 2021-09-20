@@ -15,7 +15,7 @@ const getProfiles = async () => {
 };
 
 const getAllProfiles = async () => {
-  const url = `${baseUrl}/users/`;
+  const url = `${baseUrl}/users/?all=true`;
   const { data } = await axios.get(url);
   return data.docs;
 };
