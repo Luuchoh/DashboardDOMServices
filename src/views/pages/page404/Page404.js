@@ -1,16 +1,12 @@
 import React from 'react'
 import {
-  CButton,
   CCol,
   CContainer,
-  CInput,
   CInputGroup,
-  CInputGroupPrepend,
   CInputGroupAppend,
-  CInputGroupText,
   CRow
 } from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+import { Link } from 'react-router-dom'
 
 const Page404 = () => {
   return (
@@ -24,14 +20,8 @@ const Page404 = () => {
               <p className="text-muted float-left">The page you are looking for was not found.</p>
             </div>
             <CInputGroup className="input-prepend">
-              <CInputGroupPrepend>
-                <CInputGroupText>
-                  <CIcon name="cil-magnifying-glass" />
-                </CInputGroupText>
-              </CInputGroupPrepend>
-              <CInput size="16" type="text" placeholder="What are you looking for?" />
               <CInputGroupAppend>
-                <CButton color="info">Search</CButton>
+                <Link to="/" color="info">Volver al inicio</Link>
               </CInputGroupAppend>
             </CInputGroup>
           </CCol>

@@ -1,5 +1,4 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import React from "react";
 import {
   CButton,
   CCard,
@@ -8,15 +7,50 @@ import {
   CCol,
   CContainer,
   CForm,
+  CImg,
   CInput,
   CInputGroup,
   CInputGroupPrepend,
   CInputGroupText,
-  CRow
-} from '@coreui/react'
-import CIcon from '@coreui/icons-react'
+  CRow,
+} from "@coreui/react";
+import CIcon from "@coreui/icons-react";
+import logo from "../../../assets/icons/logo.svg";
+
+import { useDispatch } from "react-redux";
+import { useFormik } from "formik";
+import * as Yup from "yup";
+
+//acciones
+import { startLoginEmailPassword } from "src/redux/actions/authActions";
 
 const Login = () => {
+  const dispatch = useDispatch();
+
+  const formik = useFormik({
+    initialValues: {
+      email: "",
+      password: "",
+      remenber: true,
+    },
+    validationSchema: Yup.object({
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Email requerido"),
+      password: Yup.string()
+        .min(8, "La contraseña es muy corta - debe tener minimo 8 caracteres.")
+        .matches(
+          /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[\w*\W*]/,
+          "La contraseña debe tener un numero, una mayuscula y un minuscula."
+        )
+        .required("Escribe tu contraseña."),
+    }),
+    onSubmit: () => {
+      dispatch(startLoginEmailPassword(email, password, remenber));
+    },
+  });
+
+  const { email, password, remenber } = formik.values;
   return (
     <div className="c-app c-default-layout flex-row align-items-center">
       <CContainer>
@@ -25,7 +59,7 @@ const Login = () => {
             <CCardGroup>
               <CCard className="p-4">
                 <CCardBody>
-                  <CForm>
+                  <CForm onSubmit={formik.handleSubmit}>
                     <h1>Login</h1>
                     <p className="text-muted">Sign In to your account</p>
                     <CInputGroup className="mb-3">
@@ -34,7 +68,19 @@ const Login = () => {
                           <CIcon name="cil-user" />
                         </CInputGroupText>
                       </CInputGroupPrepend>
-                      <CInput type="text" placeholder="Username" autoComplete="username" />
+                      <CInput
+                        type="email"
+                        placeholder="Email"
+                        name="email"
+                        value={email}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                      />
+                      {formik.touched.email && formik.errors.email ? (
+                        <p className="w-100 text-danger">
+                          {formik.errors.email}
+                        </p>
+                      ) : null}
                     </CInputGroup>
                     <CInputGroup className="mb-4">
                       <CInputGroupPrepend>
@@ -42,28 +88,38 @@ const Login = () => {
                           <CIcon name="cil-lock-locked" />
                         </CInputGroupText>
                       </CInputGroupPrepend>
-                      <CInput type="password" placeholder="Password" autoComplete="current-password" />
+                      <CInput
+                        type="password"
+                        placeholder="Password"
+                        autoComplete="current-password"
+                        name="password"
+                        value={password}
+                        onChange={formik.handleChange}
+                        onBlur={formik.handleBlur}
+                      />
+                      {formik.touched.password && formik.errors.password ? (
+                        <p className="w-100 text-danger">
+                          {formik.errors.password}
+                        </p>
+                      ) : null}
                     </CInputGroup>
                     <CRow>
                       <CCol xs="6">
-                        <CButton color="primary" className="px-4">Login</CButton>
-                      </CCol>
-                      <CCol xs="6" className="text-right">
-                        <CButton color="link" className="px-0">Forgot password?</CButton>
+                        <CButton type="submit" color="primary" className="px-4">
+                          Ingresar
+                        </CButton>
                       </CCol>
                     </CRow>
                   </CForm>
                 </CCardBody>
               </CCard>
-              <CCard className="text-white bg-primary py-5 d-md-down-none" style={{ width: '44%' }}>
-                <CCardBody className="text-center">
+              <CCard
+                className="text-white bg-primary py-5 d-md-down-none"
+                style={{ width: "44%" }}
+              >
+                <CCardBody className="text-center justify-content-center align-items-center d-flex">
                   <div>
-                    <h2>Sign up</h2>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut
-                      labore et dolore magna aliqua.</p>
-                    <Link to="/register">
-                      <CButton color="primary" className="mt-3" active tabIndex={-1}>Register Now!</CButton>
-                    </Link>
+                    <CImg src={logo} fluid height="60px"  />
                   </div>
                 </CCardBody>
               </CCard>
@@ -72,7 +128,7 @@ const Login = () => {
         </CRow>
       </CContainer>
     </div>
-  )
-}
+  );
+};
 
-export default Login
+export default Login;

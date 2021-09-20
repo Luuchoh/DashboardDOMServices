@@ -116,7 +116,7 @@ const Widgets = () => {
               <CCardFooter className="card-footer px-3 py-2">
                 <CLink
                   className="font-weight-bold font-xs btn-block text-muted"
-                  href="https://coreui.io/"
+                  href=""
                   rel="noopener norefferer" 
                   target="_blank"
                 >

@@ -12,7 +12,7 @@ import {
 } from "@coreui/react";
 import { useDispatch, useSelector } from "react-redux";
 
-import profile from "../../redux/actions/userActions";
+import { findCategories } from "../../redux/actions/categoriesActions";
 
 const getBadge = (status) => {
   switch (status) {
@@ -29,36 +29,34 @@ const getBadge = (status) => {
   }
 };
 
-const Users = () => {
+const Categories = () => {
   const dispatch = useDispatch();
-  const users = useSelector(state => state.users)
+  const categories = useSelector(state => state.categories)
   const history = useHistory();
   const queryPage = useLocation().search.match(/page=([0-9]+)/, "");
   const currentPage = Number(queryPage && queryPage[1] ? queryPage[1] : 1);
   const [page, setPage] = useState(currentPage);
 
   const pageChange = (newPage) => {
-    currentPage !== newPage && history.push(`/users?page=${newPage}`);
+    currentPage !== newPage && history.push(`/categories/actual-categories?page=${newPage}`);
   };
 
 
   useEffect(() => {
     currentPage !== page && setPage(currentPage);
-    dispatch(profile.findAllUser())
+    dispatch(findCategories())
   }, [dispatch, currentPage, page]);
 
   return (
-    <CRow>
-      <CCol xl={12}>
+    <CRow className="justify-content-center">
+      <CCol xl={7}>
         <CCard>
-          <CCardHeader>Usuarios</CCardHeader>
+          <CCardHeader>Categorias</CCardHeader>
           <CCardBody>
             <CDataTable
-              items={users}
+              items={categories}
               fields={[
-                { key: "displayName", label:'Nombre' ,_classes: "font-weight-bold" },
-                { key:"email", label:'Correo'},
-                { key:"userType", label:'Rol'},
+                { key: "name", label:'Nombre' ,_classes: "font-weight-bold" },
                 { key:"delete", label:'Estado'},
               ]}
               hover
@@ -66,11 +64,11 @@ const Users = () => {
               itemsPerPage={5}
               activePage={page}
               clickableRows
-              onRowClick={(item) => history.push(`/users/${item._id}`)}
+              onRowClick={(item) => history.push(`/categories/actual-categories/${item._id}`)}
               scopedSlots={{
                 delete: (item) => (
                   <td>
-                    <CBadge color={getBadge(`status:`, item.delete ? `danger`: `sucess`)}>{item.delete}</CBadge>
+                    <CBadge color={getBadge( item.delete ? 'Active': 'Inactive')}>{item.delete}</CBadge>
                   </td>
                 ),
               }}
@@ -78,7 +76,7 @@ const Users = () => {
             <CPagination
               activePage={page}
               onActivePageChange={pageChange}
-              pages={users.length/5}
+              pages={categories.length/5 < 1 ? 1 : categories.length/5}
               doubleArrows={false}
               align="center"
             />
@@ -89,4 +87,4 @@ const Users = () => {
   );
 };
 
-export default Users;
+export default Categories;

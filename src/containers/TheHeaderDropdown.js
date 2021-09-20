@@ -8,8 +8,20 @@ import {
   CImg
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
+import { useDispatch, useSelector } from 'react-redux'
+
+//acciones
+import { logout } from 'src/redux/actions/authActions'
 
 const TheHeaderDropdown = () => {
+
+  const auth = useSelector(state => state.auth)
+  const dispatch = useDispatch()
+
+  const handleLogout = () => {
+    dispatch(logout());
+  };
+
   return (
     <CDropdown
       inNav
@@ -19,7 +31,7 @@ const TheHeaderDropdown = () => {
       <CDropdownToggle className="c-header-nav-link" caret={false}>
         <div className="c-avatar">
           <CImg
-            src={'avatars/6.jpg'}
+            src={auth.imageUrl}
             className="c-avatar-img"
             alt="admin@bootstrapmaster.com"
           />
@@ -80,9 +92,9 @@ const TheHeaderDropdown = () => {
           <CBadge color="primary" className="mfs-auto">42</CBadge>
         </CDropdownItem>
         <CDropdownItem divider />
-        <CDropdownItem>
+        <CDropdownItem onClick={handleLogout}>
           <CIcon name="cil-lock-locked" className="mfe-2" />
-          Lock Account
+          Cerrar sesión
         </CDropdownItem>
       </CDropdownMenu>
     </CDropdown>

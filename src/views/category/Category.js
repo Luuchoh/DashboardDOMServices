@@ -3,10 +3,12 @@ import { CCard, CCardBody, CCardHeader, CCol, CRow } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { useSelector } from 'react-redux'
 
-const User = ({match}) => {
-  const users = useSelector(state => state.users)
-  const user = users.find( user => user._id === match.params.id)
-  const userDetails = user ? Object.entries(user) : 
+const Category = ({match}) => {
+  const categories = useSelector(state => state.categories)
+  console.log(categories);
+  const category = categories.find( category => category._id === match.params.id)
+  console.log(category)
+  const categoryDetails = category ? Object.entries(category) : 
     [['id', (<span><CIcon className="text-muted" name="cui-icon-ban" /> Not found</span>)]]
 
   return (
@@ -14,13 +16,13 @@ const User = ({match}) => {
       <CCol lg={12}>
         <CCard>
           <CCardHeader>
-            User id: {match.params.id}
+            category id: {match.params.id}
           </CCardHeader>
           <CCardBody>
               <table className="table table-striped table-hover">
                 <tbody>
                   {
-                    userDetails.map(([key, value], index) => {
+                    categoryDetails.map(([key, value], index) => {
                       return (
                         <tr key={index.toString()}>
                           <td>{`${key}:`}</td>
@@ -38,4 +40,4 @@ const User = ({match}) => {
   )
 }
 
-export default User
+export default Category

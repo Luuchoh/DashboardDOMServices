@@ -9,12 +9,14 @@ import {
   CHeaderNavLink,
   CSubheader,
   CBreadcrumbRouter,
-  CLink
+  CLink,
+  CImg
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
+import logo from "../assets/icons/logo.svg";
 
 // routes config
-import routes from '../routes'
+import routes from '../routers/routes'
 
 import { 
   TheHeaderDropdown,
@@ -25,7 +27,8 @@ import {
 
 const TheHeader = () => {
   const dispatch = useDispatch()
-  const sidebarShow = useSelector(state => state.sidebarShow)
+  const {sidebarShow} = useSelector(state => state.changeState)
+
 
   const toggleSidebar = () => {
     const val = [true, 'responsive'].includes(sidebarShow) ? false : 'responsive'
@@ -38,10 +41,10 @@ const TheHeader = () => {
   }
 
   return (
-    <CHeader withSubheader>
+    <CHeader withSubheader className="bg-dark">
       <CToggler
         inHeader
-        className="ml-md-3 d-lg-none"
+        className="ml-md-3 d-lg-none "
         onClick={toggleSidebarMobile}
       />
       <CToggler
@@ -50,7 +53,12 @@ const TheHeader = () => {
         onClick={toggleSidebar}
       />
       <CHeaderBrand className="mx-auto d-lg-none" to="/">
-        <CIcon name="logo" height="48" alt="Logo"/>
+      <CImg
+          src={logo}
+          fluid
+          height='48px'
+          className="bg-dark"
+        />
       </CHeaderBrand>
 
       <CHeaderNav className="d-md-down-none mr-auto">
@@ -59,9 +67,6 @@ const TheHeader = () => {
         </CHeaderNavItem>
         <CHeaderNavItem  className="px-3">
           <CHeaderNavLink to="/users">Users</CHeaderNavLink>
-        </CHeaderNavItem>
-        <CHeaderNavItem className="px-3">
-          <CHeaderNavLink>Settings</CHeaderNavLink>
         </CHeaderNavItem>
       </CHeaderNav>
 
@@ -78,18 +83,13 @@ const TheHeader = () => {
           routes={routes} 
         />
           <div className="d-md-down-none mfe-2 c-subheader-nav">
-            <CLink className="c-subheader-nav-link"href="#">
-              <CIcon name="cil-speech" alt="Settings" />
-            </CLink>
+            
             <CLink 
               className="c-subheader-nav-link" 
               aria-current="page" 
               to="/dashboard"
             >
               <CIcon name="cil-graph" alt="Dashboard" />&nbsp;Dashboard
-            </CLink>
-            <CLink className="c-subheader-nav-link" href="#">
-              <CIcon name="cil-settings" alt="Settings" />&nbsp;Settings
             </CLink>
           </div>
       </CSubheader>
