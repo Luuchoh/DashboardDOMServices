@@ -41,11 +41,11 @@ const App = () => {
           <React.Suspense fallback={loading}>
             <Switch>
               <PublicRouter path="/login" component={Login} />
+              <PrivateRouter path="/" component={TheLayout} />
               <Route path="/404" component={Page404} />
               <Route path="/500" component={Page500} />
-              <PrivateRouter path="/" component={TheLayout} />
             </Switch>
-            <Redirect to="/404" />
+            <Redirect to="/404"/>
           </React.Suspense>
       </HashRouter>
     );

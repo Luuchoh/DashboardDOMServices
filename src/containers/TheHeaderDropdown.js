@@ -9,6 +9,8 @@ import {
 } from '@coreui/react'
 import CIcon from '@coreui/icons-react'
 import { useDispatch, useSelector } from 'react-redux'
+import { useHistory } from 'react-router'
+
 
 //acciones
 import { logout } from 'src/redux/actions/authActions'
@@ -16,10 +18,12 @@ import { logout } from 'src/redux/actions/authActions'
 const TheHeaderDropdown = () => {
 
   const auth = useSelector(state => state.auth)
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const history = useHistory();
 
   const handleLogout = () => {
     dispatch(logout());
+    history.push('/login');
   };
 
   return (
