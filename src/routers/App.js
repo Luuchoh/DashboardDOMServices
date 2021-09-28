@@ -3,6 +3,9 @@ import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { HashRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { login } from 'src/redux/actions/authActions';
+import { findCategories } from 'src/redux/actions/categoriesActions';
+import { findServices } from 'src/redux/actions/serviceActions';
+import Profile from 'src/redux/actions/userActions';
 import '../scss/style.scss';
 import { PrivateRouter } from './PrivateRouter';
 import { PublicRouter } from './PublicRouter';
@@ -31,6 +34,9 @@ const App = () => {
       const user = jwtDecode(token);
       if (user) {
         dispatch(login(user));
+        dispatch(findServices());
+        dispatch(Profile.findAllUser())
+        dispatch(findCategories())
       }
     }
   }, [dispatch]);

@@ -30,6 +30,34 @@ const _nav =  [
   // },
   {
     _tag: 'CSidebarNavDropdown',
+    name: 'Servicios',
+    route: '/services',
+    icon: 'cil-star',
+    _children: [
+      {
+        _tag: 'CSidebarNavItem',
+        name: 'Servicios Actuales',
+        to: '/services',
+      },
+      // {
+      //   _tag: 'CSidebarNavItem',
+      //   name: 'Brand buttons',
+      //   to: '/buttons/brand-buttons',
+      // },
+      // {
+      //   _tag: 'CSidebarNavItem',
+      //   name: 'Buttons groups',
+      //   to: '/buttons/button-groups',
+      // },
+      // {
+      //   _tag: 'CSidebarNavItem',
+      //   name: 'Dropdowns',
+      //   to: '/buttons/button-dropdowns',
+      // }
+    ],
+  },
+  {
+    _tag: 'CSidebarNavDropdown',
     name: 'Baner',
     route: '/banner',
     icon: 'cil-layers',
@@ -144,34 +172,7 @@ const _nav =  [
       // },
     ],
   },
-  {
-    _tag: 'CSidebarNavDropdown',
-    name: 'Rating',
-    route: '/buttons',
-    icon: 'cil-star',
-    _children: [
-      {
-        _tag: 'CSidebarNavItem',
-        name: 'Buttons',
-        to: '/buttons/buttons',
-      },
-      // {
-      //   _tag: 'CSidebarNavItem',
-      //   name: 'Brand buttons',
-      //   to: '/buttons/brand-buttons',
-      // },
-      // {
-      //   _tag: 'CSidebarNavItem',
-      //   name: 'Buttons groups',
-      //   to: '/buttons/button-groups',
-      // },
-      // {
-      //   _tag: 'CSidebarNavItem',
-      //   name: 'Dropdowns',
-      //   to: '/buttons/button-dropdowns',
-      // }
-    ],
-  },
+ 
   // {
   //   _tag: 'CSidebarNavDropdown',
   //   name: 'Notifications',
