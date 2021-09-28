@@ -47,7 +47,7 @@ const Dashboard = () => {
                 <p>Acerca de él: {user.about ? user.about:'Por definir'}</p>
               </div>
               <div className="w-50 p-4">
-                <img src={user.imageUrl} width="100%"/>
+                <img src={user.imageUrl} width="100%" alt="avatar-usuario"/>
               </div>
 
               </div>
@@ -71,7 +71,7 @@ const Dashboard = () => {
                 <p>Servicio creado por: {name.displayName}</p>
               </div>
               <div className="w-50 p-4">
-                <img src={service.imageUrl} width="100%"/>
+                <img src={service.imageUrl} width="100%" alt="Avatar-servicio"/>
               </div>
 
               </div>
